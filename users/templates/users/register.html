@@ -1,0 +1,235 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title> App landing</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+  <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/progressbar_barfiller.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/gijgo.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/animated-headline.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+</head>
+
+<body>
+
+  <div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+      <div class="preloader-inner position-relative">
+        <div class="preloader-circle"></div>
+        <div class="preloader-img pere-text">
+          <img src="{% static 'assets/img/logo/loder.png' %}" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <main class="login-body" data-vide-bg="{% static 'assets/img/login-bg.mp4' %}">
+
+    {% if page == "learner" %}
+    <form class="form-default" method="POST">
+      {% csrf_token %}
+      <div class="login-form">
+
+        <div class="logo-login">
+          <a href="{% url 'home_page' %}"><img src="{% static 'assets/img/logo/loder.png' %}" alt=""></a>
+        </div>
+        <h2>Registration Here</h2>
+
+        <div class="form-input">
+          {{ user_form.full_name }}
+          {% for error in user_form.full_name.errors %}
+          <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="form-input">
+          {{ user_form.username }}
+          {% for error in user_form.username.errors %}
+          <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="form-input">
+          {{ user_form.email }}
+          {% for error in user_form.email.errors %}
+          <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="form-input">
+          {{ learner_form.occupation }}
+          {% for error in learner_form.occupation.errors %}
+          <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="form-input">
+          {{ learner_form.social_link }}
+          {% for error in learner_form.social_link.errors %}
+          <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="form-input">
+          {{ user_form.password1 }}
+          {% for error in user_form.password1.errors %}
+          <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="form-input">
+          {{ user_form.password2 }}
+          {% for error in user_form.password2.errors %}
+          <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="form-input pt-30">
+          <input type="submit" name="submit" value="Registration">
+        </div>
+
+        <a href="" class="registration">Login</a>
+      </div>
+    </form>
+
+
+    {% elif page == "instructor" %}
+
+
+    <form class="form-default"  method="POST">
+      {% csrf_token %}
+      <div class="login-form">
+
+        <div class="logo-login">
+          <a href="{% url 'home_page' %}"><img src="{% static 'assets/img/logo/loder.png' %}" alt=""></a>
+        </div>
+        <h2>Registration Here</h2>
+        <div class="form-input">
+          {{ user_form.full_name }}
+          {% for error in user_form.full_name.errors %}
+          <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="form-input">
+          {{ user_form.username }}
+          {% for error in user_form.username.errors %}
+          <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="form-input">
+          {{ user_form.email }}
+          {% for error in user_form.email.errors %}
+          <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="form-input">
+          {{ instructor_form.total_learners }}
+          {% for error in instructor_form.total_learners.errors %}
+          <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="form-input">
+          {{ user_form.password1 }}
+          {% for error in user_form.password1.errors %}
+          <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+       <div class="form-input">
+          {{ user_form.password2 }}
+          {% for error in user_form.password2.errors %}
+          <p class="error">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        
+        <div class="form-input pt-30">
+          <div class="row">
+            <div class="col-md-6 offset-md-6 text-right">
+              <label for="">Full time</label>
+            </div>
+            <div class="col-md-6 text-left">
+              <!-- <input type="checkbox" name="check" value="Full time" checked> -->
+              {{ instructor_form.full_time }}
+            </div>
+          </div>
+        </div>
+        <div class="form-input pt-30">
+          <input type="submit" name="submit" value="Registration">
+        </div>
+
+        <a href="" class="registration">Login</a>
+      </div>
+    </form>
+
+    {% endif %}
+
+
+
+  </main>
+  <script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+
+  <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+  <script src="{% static 'assets/js/popper.min.js' %}"></script>
+  <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+
+  <script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
+
+  <script src="{% static 'assets/js/jquery.vide.js' %}"></script>
+
+  <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'assets/js/slick.min.js' %}"></script>
+
+  <script src="{% static 'assets/js/wow.min.js' %}"></script>
+  <script src="{% static 'assets/js/animated.headline.js' %}"></script>
+  <script src="{% static 'assets/js/jquery.magnific-popup.js' %}"></script>
+
+  <script src="{% static 'assets/js/gijgo.min.js' %}"></script>
+
+  <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+  <script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
+
+  <script src="{% static 'assets/js/jquery.barfiller.js' %}"></script>
+
+  <script src="{% static 'assets/js/jquery.counterup.min.js' %}"></script>
+  <script src="{% static 'assets/js/waypoints.min.js' %}"></script>
+  <script src="{% static 'assets/js/jquery.countdown.min.js' %}"></script>
+  <script src="{% static 'assets/js/hover-direction-snake.min.js' %}"></script>
+
+  <script src="{% static 'assets/js/contact.js' %}"></script>
+  <script src="{% static 'assets/js/jquery.form.js' %}"></script>
+  <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+  <script src="{% static 'assets/js/mail-script.js' %}"></script>
+  <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+
+  <script src="{% static 'assets/js/plugins.js' %}"></script>
+  <script src="{% static 'assets/js/main.js' %}"></script>
+  <script defer="" src="../../beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
+    integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA=="
+    data-cf-beacon='{"rayId":"82e224028ff70e90","version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+<!-- course_detail.html -->
+
+
+{% extends "base.html" %}
+{% block content %}
+
+{% load static %}
+
+<main>
+
+    <section class="slider-area slider-area2">
+        <div class="slider-active">
+
+            <div class="single-slider slider-height2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-11 col-md-12">
+                            <div class="hero__caption hero__caption2">
+                                <h1 data-animation="bounceIn" data-delay="0.2s">{{course.name}}</h1>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog_area single-post-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 posts-list">
+                    <div class="single-post">
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}> <h1 class="alert alert-primary"><strong>{{ message }}</strong></h1></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        <div class="feature-img">
+                            <img class="img-fluid" src="{{course.image.url}}" alt="" style="height:50vh; width:90%">
+                        </div>
+                        <div class="blog_details">
+
+                            <ul class="blog-info-link mt-3 mb-4">
+                                <li><a href="#"><i class="fa fa-user"></i>
+                                        {% for instructor in course.instructors.all %}
+                                        {{ instructor.user.first_name.capitalize }}
+                                        {{ instructor.user.last_name.capitalize }}
+                                        {% endfor %}</a></li>
+                                <li><a href="#">pub-date {{ course.pub_date}}</a></li>
+                            </ul>
+                            <p class="excert">
+                                {{ course.description|safe}}
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="comments-area" style=" margin-top:-15px">
+
+                        {% if lessons %}
+                        <h2 style="margin-bottom:20px">Course Lessons</h2>
+
+                        {% else %}
+                        <h2>No Lesson yet please stay tuned...</h2>
+                        {% endif %}
+
+
+
+                        {% for lesson in lessons %}
+                        <div class="comment-list">
+                            <div class="single-comment justify-content-between d-flex">
+                                <div class="user justify-content-between d-flex">
+
+                                    <div class="desc">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <h4>Lesson {{ forloop.counter }}: <a
+                                                        href="{% url 'enrolledcourse_details' lesson.course.id lesson.id %}"><strong>{{ lesson.title }}</strong></a>
+                                                </h4>
+                                            </div>
+
+                                        </div>
+
+                                        <!-- <p class="comment" style="margin-top: -2em;">
+                                            {% if lesson.content|safe|length <= 100 %}
+                                            {{ lesson.content|safe }}
+                                            {% else %}
+                                            {{ lesson.content|safe|slice:":100" }}...
+                                            {% endif %}
+                                        </p> -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="blog_right_sidebar">
+
+
+                        <aside class="single_sidebar_widget popular_post_widget">
+                            <h3 class="widget_title" style="color: #2d2d2d;">Other Courses Enrolled</h3>
+                            {% for course_enrollment in enrolled_course %}
+                            <div class="media post_item">
+                                <img src="{{ course_enrollment.course.image.url }}" height="50px" width="50px"
+                                    alt="post">
+                                <div class="media-body">
+                                    <a href="{% url 'enrolledcourse_details' course_id=course_enrollment.course.id %}">
+                                        <h3 style="color: #2d2d2d;">{{ course_enrollment.course.name }}.</h3>
+                                    </a>
+                                    <p>{{ course_enrollment.enrollment_date }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+<!-- <h1>{{ course.title }}</h1>
+<p>{{ course.description }}</p>
+
+<h2>Enrolled Subjects</h2>
+<ul>
+    {% for enrolled_course in enrolled_courses %}
+        <li>{{ enrolled_course.subject.title }}</li>
+        
+    {% endfor %}
+</ul> -->

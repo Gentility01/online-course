@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Instructor Lessons</title>
+</head>
+
+<body>
+
+
+    <!-- course_detail.html -->
+
+
+    {% extends "base.html" %}
+    {% block content %}
+
+    {% load static %}
+
+    <main>
+
+        <section class="slider-area slider-area2">
+            <div class="slider-active">
+
+                <div class="single-slider slider-height2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-11 col-md-12">
+                                <div class="hero__caption hero__caption2">
+                                    <h1 data-animation="bounceIn" data-delay="0.2s">
+                                        <h1>Lessons created by {{ instructor.user.username }}</h1>
+                                    </h1>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="blog_area single-post-area section-padding">
+            <div class="container">
+                {% if lessons %}
+                <ul>
+                    {% for lesson in lessons %}
+                    <a
+                        href="{% url 'enrolledcourse_details' course_id=lesson.course.id lesson_id=lesson.id %}">
+                        <p>
+                            <li style="color: black; text-align:center">{{ lesson.title }}</li>
+                        </p>
+                    </a>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>No lessons created by you.</p>
+                {% endif %}
+            </div>
+        </section>
+
+    </main>
+
+
+    {% endblock content %}
+
+
+
+
+
+
+
+
+    <!-- <h1>{{ course.title }}</h1>
+<p>{{ course.description }}</p>
+
+<h2>Enrolled Subjects</h2>
+<ul>
+    {% for enrolled_course in enrolled_courses %}
+        <li>{{ enrolled_course.subject.title }}</li>
+        
+    {% endfor %}
+</ul> -->
+
+
+
+
+</body>
+
+</html>

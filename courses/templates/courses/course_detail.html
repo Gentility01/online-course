@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% load static %}
+
+<main>
+
+    <section class="slider-area slider-area2">
+        <div class="slider-active">
+
+            <div class="single-slider slider-height2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-11 col-md-12">
+                            <div class="hero__caption hero__caption2">
+                                <h1 data-animation="bounceIn" data-delay="0.2s">Details on
+                                    <small><b>({{course.name}})</b></small></h1>
+                                    {% if request.user == course.created_by %}
+                                     <a href="{% url 'edit_course' course.id %}" class="btn btn-primary">Edit course</a>
+                                    {% endif %}
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog_area single-post-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 posts-list">
+                    <div class="single-post">
+                        <div class="feature-img">
+                            <img class="img-fluid" src="{{course.image.url}}" alt="">
+                        </div>
+                        <div class="blog_details">
+                            <h2 style="color: #2d2d2d;">{{ course.name}}
+                            </h2>
+                            <ul class="blog-info-link mt-3 mb-4">
+                                <li><a href="#"><i class="fa fa-user"></i>
+                                        {% for instructor in course.instructors.all %}
+                                        {{ instructor.user.first_name.capitalize }}
+                                        {{ instructor.user.last_name.capitalize }}
+                                        {% endfor %}</a></li>
+                                <li><a href="#">pub-date {{ course.pub_date}}</a></li>
+                            </ul>
+                            <p class="excert">
+                                {{ course.description|safe}}
+                            </p>
+
+                            {% if user.is_authenticated and user.instructor %}
+                           <a href="{% url 'create_lesson' course.id %}"> <button class="btn btn-outline-primary">Set lesson</button></a>
+                           {% else %}
+                           <a href="{% url 'enroll_course' course.id %}"> <button class="btn btn-outline-primary">Enroll for this course</button></a>
+                           {% endif %}
+                        </div>
+                    </div>
+
+
+                    <!-- <div class="comments-area" style=" margin-top:-15px">
+
+                        {% if lessons %}
+                        <h2 style="margin-bottom:20px">Course Lessons</h2>
+
+                        {% else %}
+                        <h2>No Lesson yet please stay tuned...</h2>
+                        {% endif %}
+
+
+                        
+                            {% for lesson in lessons %}
+                            <div class="comment-list">
+                                <div class="single-comment justify-content-between d-flex">
+                                    <div class="user justify-content-between d-flex">
+
+                                        <div class="desc">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="d-flex align-items-center">
+                                                    <h4>Lesson {{ forloop.counter }}: <a href="">{{ lesson.title }}</a></h4>
+                                                </div>
+
+                                            </div>
+
+                                            <p class="comment" style="margin-top: -2em;">
+                                                {% if lesson.content|length <= 200 %}
+                                                {{ lesson.content }}
+                                              {% else %}
+                                                {{ lesson.content|slice:":200" }}...
+                                              {% endif %}
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        
+
+                    </div> -->
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog_right_sidebar">
+                        
+                       
+                        <aside class="single_sidebar_widget popular_post_widget">
+                            <h3 class="widget_title" style="color: #2d2d2d;">Recent Courses</h3>
+                            {% for course in current_courses %}
+                            <div class="media post_item">
+                                <img src="{{ course.image.url}}" height="50px" width="50px" alt="post">
+                                <div class="media-body">
+                                    <a href="{% url 'course_detail' course.id %}">
+                                        <h3 style="color: #2d2d2d;">{{ course.name}}.</h3>
+                                    </a>
+                                    <p>{{course.pub_date}}</p>
+                                </div>
+                            </div> 
+                            {% endfor %}
+                            
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+
+{% endblock content %}

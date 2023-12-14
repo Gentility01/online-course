@@ -1,0 +1,78 @@
+<!-- course_detail.html -->
+
+
+{% extends "base.html" %}
+{% block content %}
+
+{% load static %}
+
+<main>
+
+    <section class="slider-area slider-area2">
+        <div class="slider-active">
+
+            <div class="single-slider slider-height2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-11 col-md-12">
+                            <div class="hero__caption hero__caption2">
+                                <h1 data-animation="bounceIn" data-delay="0.2s">Questions on {{lesson.title}}</h1>
+                                {% if user.is_authenticated  and  total_score %}
+                                <strong>Score {{ total_score }} %</strong>
+                                  
+                                {% endif %}
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog_area single-post-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 posts-list">
+                    <div class="container">
+                        {% for question, has_submitted in questions %}
+                        {% if not has_submitted %}
+                        <p>
+                            <div class="card" style="padding:30px">
+                                <div class="card-body">
+                                    <h2 class="card-title">{{ question.title }}</h2>
+                                    <p class="card-text">{{ question.content|safe }}.</p>
+
+                                    <a href="{% url 'review_and_submit_question' lesson_id=lesson.id question_id=question.id %}"
+                                        class="btn btn-primary btn-sm">Answer Question</a>
+                                </div>
+                            </div>
+                        </p>
+                        {% else %}
+                        <p>
+                            <div class="card" >
+                                <div class="card-body">
+                                    <h2 class="card-title">{{ question.title }}</h2>
+                                    <p class="card-text">You've already answered this question.</p>
+                                </div>
+                            </div>
+                        </p>
+                        {% endif %}
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+        </div>
+    </section>
+
+</main>
+
+
+{% endblock content %}

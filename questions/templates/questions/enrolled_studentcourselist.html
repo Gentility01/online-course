@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+  
+
+
+    <main>
+
+        <section class="slider-area slider-area2">
+            <div class="slider-active">
+
+                <div class="single-slider slider-height2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-11 col-md-12">
+                                <div class="hero__caption hero__caption2">
+                                    <h1 data-animation="bounceIn" data-delay="0.2s">Enrolled courses</h1>
+                                    {{ user.username }}'s Enrolled Courses
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="courses-area section-padding40 fix">
+            <div class="container">
+                
+                <div class="row">
+                    
+                    {% if enrolled_courses %}
+
+                    {% for course in enrolled_courses %}
+                    <div class="col-lg-4">
+                        <div class="properties properties2 mb-30">
+                            <div class="properties__card">
+                                <div class="properties__img overlay1">
+                                    <a href="{% url 'enrolledcourse_details' course.id %}"><img src="{{ course.image.url }}" alt=""></a>
+                                </div>
+                                <div class="properties__caption">
+                                   
+                                    <h3><a href="{% url 'enrolledcourse_details' course.id %}">{{ course.name}}</a></h3>
+                                    
+                                    <a href="{% url 'enrolledcourse_details' course.id %}" class="border-btn border-btn2">Engage</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    {% else %}
+                    <h3>You've not enrolled to any course yet...</h3>
+                    {% endif %}
+                        
+                
+                   
+                </div>
+                
+            </div>
+        </div>
+
+
+        
+
+    </main>
+{% endblock content %}

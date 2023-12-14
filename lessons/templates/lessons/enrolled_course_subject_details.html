@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+<!-- Extend your base template if you have one -->
+
+{% block content %}
+<main>
+
+  <section class="slider-area slider-area2">
+    <div class="slider-active">
+
+      <div class="single-slider slider-height2">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-8 col-lg-11 col-md-12">
+              <div class="hero__caption hero__caption2">
+                <h1 data-animation="bounceIn" data-delay="0.2s">Enrolled in: {{ enrollment.course.name }}</h1>
+                <p>Lesson Title: {{ lesson.title }}</p>
+
+                {% if user.is_authenticated and user.instructor %}
+
+
+                <p>
+                  <a href="{% url 'edit_lesson' lesson.course.id lesson.id %}" class="btn btn-primary">Edit Lesson</a>
+                  <a href="{% url 'lesson_questions' lesson.course.id lesson.id %}" class="btn btn-primary">Set Lesson Questions</a>
+                  <a href="{% url 'set_questionchoices' lesson.id %}" class="btn btn-outline-secondary">Set Options for Questions</a>
+                </p>
+
+                {% else %}
+                <p>Enrollment Mode: {{ enrollment.mode }}</p>
+                {% endif %}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sample-text-area">
+    <div class="container box_1170">
+      <h1 class="text-heading">{{ lesson.title }}</h1>
+      <p class="sample-text">
+        {{ lesson.content|safe }}
+      </p>
+    </div>
+  </section>
+
+
+  <section class="button-area">
+    <div class="container box_1170 border-top-generic">
+      <h3 class="text-heading">End of Lesson</h3>
+      <div class="button-group-area">
+        <!-- <a href="#" class="genric-btn default">Go to Questions</a> -->
+        <a href="{% url 'student_askquestion' lesson.id %}" class="genric-btn primary">Ask Questions</a>
+        <a href="{% url 'lesson_question_lists' lesson_id=lesson.id %}" class="genric-btn success">Go to Lesson Questions</a>
+
+      </div>
+
+    </div>
+  </section>
+
+
+
+</main>
+{% endblock content%}

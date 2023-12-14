@@ -1,0 +1,42 @@
+1. django  projects
+
+2. set up static files
+
+3. create users app
+    create users models(CustomUser, Learner, Instructor)
+    create users form to impement the models
+        split full name to first_name and last_name
+        Check if the user is a learner or instructor  before creating a Learner instance
+        create views for users
+        test
+        add widgets
+4. Create Course app
+    create courses models
+    create courses form
+    create course views and template
+    get all the created courses in home page using objects.all()
+
+    create enrollment models
+    create enrollment forms
+    create views for course enrollment
+    create a view for enrolled course details(just to render to the template for now)
+
+5. Create Lesson apps
+    create lesson models
+    create lesson forms
+    create views to create lesson
+    create view to create instructors lesson lists
+    create views for enrolled course lesson details
+    go back to course app to create enrolledcourse_details
+    connect the url to the user when he emrolled in a coiurse it will take im to te detail page
+    create view to edit the lesson
+
+6. Create Question app
+    create question models
+    create answer models
+    create choice model
+    create submission model
+    create forms for all the models
+    create views for "ask questions",  connect to the template
+    create views for "lesson questions"
+    create view to set question choices 

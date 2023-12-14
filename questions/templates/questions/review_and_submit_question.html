@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<main style="background-color: #4255A4;">
+
+    <section class="about-area2 fix pb-padding">
+        <div class="support-wrapper align-items-center">
+            <div class="container" style="margin-top:10em">
+                <h1 style="color:#fff">{{ lesson.title }}</h1>
+                <h2 style="color:#fff">{{ question.title }}</h2>
+                <h2 style="color:#fff;">{{ question.content|safe }}</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <p>
+                        {{ form.choices|safe }}
+                    </p>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+
+    {% endblock content %}
