@@ -3,6 +3,7 @@ from .forms import UserRegistrationForm, InstructorRegistrationForm, LearnerRegi
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.contrib import messages
+from .models import Instructor
 # Create your views here.
 
 def register_instructor(request):
@@ -31,7 +32,7 @@ def register_instructor(request):
 
             # Log in the user
             login(request, user)
-
+            messages.success(request, 'Registration successful.')
             return redirect("home_page")
     else:
         user_form = UserRegistrationForm()
@@ -56,8 +57,8 @@ def register_learner(request):
             learner = learner_form.save(commit=False)
             learner.user = user
             learner.save()
-
             login(request, user)
+            messages.success(request, 'Registration successful.')
             return redirect("home_page")
     else:
         user_form = UserRegistrationForm()
@@ -81,7 +82,7 @@ def login_user(request):
         
         if user is not None:
             login(request, user)
-            # messages.success(request, 'Login successful.')
+            messages.success(request, 'Login successful.')
             return redirect('home_page')  
         else:
             messages.error(request, 'Invalid username or password.')

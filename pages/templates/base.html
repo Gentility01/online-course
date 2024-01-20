@@ -50,7 +50,8 @@
 
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                    <a href="{% url 'home_page' %}"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+                                    <a href="{% url 'home_page' %}"><img src="{% static 'assets/img/logo/logo.png' %}"
+                                            alt=""></a>
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10">
@@ -59,9 +60,9 @@
                                     <div class="main-menu d-none d-lg-block">
                                         <nav>
                                             <ul id="navigation">
-                                                
+
                                                 {% if user.is_authenticated and user.is_superuser %}
-                                                
+
                                                 <li><a href="#">Course</a>
                                                     <ul class="submenu">
                                                         <li><a href="{% url 'create_course' %}">Create Course</a></li>
@@ -79,21 +80,24 @@
                                                 <li>
                                                     <a href="">Lesson</a>
                                                     <ul class="submenu">
-                                                        <li><a href="{% url 'instructors_lessons_list' user.instructor.id %}">Lesson Lists</a> </li>
+                                                        <li><a
+                                                                href="{% url 'instructors_lessons_list' user.instructor.id %}">Lesson
+                                                                Lists</a> </li>
                                                     </ul>
                                                 </li>
-                                                  
+
                                                 {% endif %}
                                                 {% if user.is_authenticated  and user.learner %}
                                                 <li><a href="#">Course</a>
                                                     <ul class="submenu">
-                                                        <li><a href="{% url 'enrolled_studentcourselist' %}">Enrolled Courses</a></li>
+                                                        <li><a href="{% url 'enrolled_studentcourselist' %}">Enrolled
+                                                                Courses</a></li>
                                                         <li><a href="{% url 'all_courses' %}">Course Lists</a></li>
                                                     </ul>
                                                 </li>
-                                                  
+
                                                 {% endif %}
-                                            
+
                                                 <li><a href="about.html">About</a></li>
                                                 <li><a href="#">Blog</a>
                                                     <ul class="submenu">
@@ -105,13 +109,19 @@
                                                 <li><a href="contact.html">Contact</a></li>
 
                                                 {% if user.is_authenticated %}
-                                                    <li class="button-header margin-left "><h1><strong style="color: #fff;">{{user.username.capitalize}}</strong></h1>
-                                                    </li>
-                                                    <li class="button-header"><a href="{% url 'logout_user' %}" class="btn btn3">Logout</a></li>
+                                                <li class="button-header margin-left ">
+                                                    <h1><strong
+                                                            style="color: #fff;">{{user.username.capitalize}}</strong>
+                                                    </h1>
+                                                </li>
+                                                <li class="button-header"><a href="{% url 'logout_user' %}"
+                                                        class="btn btn3">Logout</a></li>
                                                 {% else %}
-                                                    <li class="button-header margin-left "><a href="{% url 'register_learner' %}" class="btn">Join</a>
-                                                    </li>
-                                                    <li class="button-header"><a href="{% url 'login_user' %}" class="btn btn3">Log
+                                                <li class="button-header margin-left "><a
+                                                        href="{% url 'register_learner' %}" class="btn">Join</a>
+                                                </li>
+                                                <li class="button-header"><a href="{% url 'login_user' %}"
+                                                        class="btn btn3">Log
                                                         in</a></li>
                                                 {% endif %}
                                             </ul>
@@ -130,10 +140,19 @@
         </div>
 
     </header>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>{{ message.tags }}</strong> {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endif %}
 
-    
     {% block content %}
-        
+
     {% endblock content %}
 
     <footer>
@@ -291,4 +310,3 @@
 </body>
 
 </html>
-        

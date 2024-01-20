@@ -15,8 +15,8 @@ def create_lesson(request, course_id):
 
     # Step 2: Check if the user is authenticated and is an instructor for the specific course
     if not request.user.is_authenticated or not course.instructors.filter(user=request.user).exists():
-        messages.error(request, "You do not have permission to create a lesson for this course.")
-        return redirect("login_user")
+        messages.error(request, "You do not have permission to create a lesson for that course.")
+        return redirect("/")
 
     if request.method == "POST":
         form = LessonForm(request.POST)

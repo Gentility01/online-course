@@ -1,0 +1,53 @@
+DAY 1
+1. Creating Django projects
+    - Creating the home app
+    - Templating
+
+2. Setting up static files
+    - Setting up base.html and the urls
+
+3. Creating users app
+    - Creating users models (CustomUser, Learner, Instructor)
+    - Creating users form to implement the models
+        - Split full name to first_name and last_name
+        - Check if the user is a learner or instructor before creating a Learner instance
+    - Creating views for users' registration and login and logout functions
+        - Test
+    - Adding widgets to our forms
+
+DAY 2
+4. Creating Course app
+    - Creating courses and enrollment models
+    - Creating courses and enrollment form
+    - Creating views for 
+        - create_course and template
+        - course_detail and template
+        - edit_course and template
+        - enroll_course and template
+        - enrolledcourse_details (just to render to the template for now)
+        - get_all_courses 
+    - Getting all the created courses in the home page using objects.all()
+
+DAY 3
+5. Creating Lesson app
+    - Creating lesson models
+    - Creating lesson forms
+    - Creating views to create lesson and template
+    - Creating view to create instructor's lesson lists and template
+    - Creating views for enrolled course lesson details
+    - Creating view for editing lesson
+    - Going back to the course app to create enrolledcourse_details
+    - Connecting the URL to the user when he enrolled in a course; it will take him to the detail page
+    - Creating view to edit the lesson
+
+DAY 4
+6. Creating Question app
+    - Creating question models
+    - Creating answer models
+    - Creating choice model
+    - Creating submission model
+    - Creating forms for all the models
+    - Creating views for "ask questions", connecting to the template
+    - Creating views for "lesson questions"
+    - Creating view to set question choices
+

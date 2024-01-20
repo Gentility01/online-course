@@ -78,24 +78,30 @@ def edit_course(request, course_id):
 
 
 def enroll_course(request, course_id):
-    course = Course.objects.get(pk=course_id)
 
-    # ceck if user is enrolled already or user is intructor
-    user_already_enrolled = Enrollment.objects.filter(user=request.user, course=course).exists()
-    if  user_already_enrolled:
-        messages.error(request, "Oops You're enrolled already")
-        return redirect("enrolledcourse_details", course_id=course.id)
+    try:
+        course = Course.objects.get(pk=course_id)
 
-    elif not user_already_enrolled and  request.method == "POST":
-        form = EnrollmentForm(request.POST)
-        if form.is_valid():
-            enrollment = form.save(commit=False)
-            enrollment.user = request.user
-            enrollment.course = course
-            enrollment.save()
+        # ceck if user is enrolled already or user is intructor
+        user_already_enrolled = Enrollment.objects.filter(user=request.user, course=course).exists()
+        if  user_already_enrolled:
+            messages.error(request, "Oops You're enrolled already")
             return redirect("enrolledcourse_details", course_id=course.id)
-    else:
-        form = EnrollmentForm()
+
+        elif not user_already_enrolled and  request.method == "POST":
+            form = EnrollmentForm(request.POST)
+            if form.is_valid():
+                enrollment = form.save(commit=False)
+                enrollment.user = request.user
+                enrollment.course = course
+                enrollment.save()
+                return redirect("enrolledcourse_details", course_id=course.id)
+        else:
+            form = EnrollmentForm()
+    except TypeError:
+        messages.warning(request, "You must login before enrolling")
+        return redirect("home_page")
+        
     
     context = {
         "form":form,

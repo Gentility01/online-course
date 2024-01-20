@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     "questions",
 
     # third party apps
-    "ckeditor"
+    "ckeditor",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,12 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# ----------------------------------------
+# graph models
+GRAPH_MODELS = {
+    "all_applications": True,
+    "group_models":True,
+
+}
