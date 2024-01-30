@@ -5,14 +5,15 @@ from django.contrib.auth.forms import UserCreationForm
 
 class UserRegistrationForm(UserCreationForm):
     full_name = forms.CharField(max_length=100)
+
     class Meta:
         model = CustomUser
         fields = ["full_name", "username", "email", "password1", "password2"]
-    
+
     def save(self, commit=True):
         user = super().save(commit=False)
-        full_name =self.cleaned_data["full_name"]
-        first_name, last_name = full_name.split(' ', 1)
+        full_name = self.cleaned_data["full_name"]
+        first_name, last_name = full_name.split(" ", 1)
         user.first_name = first_name
         user.last_name = last_name
         if commit:
@@ -31,28 +32,32 @@ class UserRegistrationForm(UserCreationForm):
         self.fields["username"].widget.attrs.update({"placeholder": " Username"})
         self.fields["email"].widget.attrs.update({"placeholder": " Email"})
         self.fields["password1"].widget.attrs.update({"placeholder": " Password"})
-        self.fields["password2"].widget.attrs.update({"placeholder": "Confirm Password"})
+        self.fields["password2"].widget.attrs.update(
+            {"placeholder": "Confirm Password"}
+        )
+
 
 class InstructorRegistrationForm(forms.ModelForm):
     class Meta:
         model = Instructor
-        fields = ['full_time', 'total_learners']
+        fields = ["full_time", "total_learners"]
 
-
-    #adding widgets
+    # adding widgets
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["total_learners"].widget.attrs.update({"placeholder":" Total Learner"})
-        self.fields["full_time"].widget.attrs.update({"class":"form-check-input"})
+        self.fields["total_learners"].widget.attrs.update(
+            {"placeholder": " Total Learner"}
+        )
+        self.fields["full_time"].widget.attrs.update({"class": "form-check-input"})
 
 
 class LearnerRegistrationForm(forms.ModelForm):
     class Meta:
         model = Learner
-        fields = ['occupation', 'social_link']
+        fields = ["occupation", "social_link"]
 
     # add widgets
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["occupation"].widget.attrs.update({"placeholder":" Occupation"})
-        self.fields["social_link"].widget.attrs.update({"placeholder":" Social Link"})
+        self.fields["occupation"].widget.attrs.update({"placeholder": " Occupation"})
+        self.fields["social_link"].widget.attrs.update({"placeholder": " Social Link"})

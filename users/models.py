@@ -1,9 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
 # Create your models here.
+
 
 class CustomUser(AbstractUser):
     bio = models.TextField(blank=True, null=True)
+
 
 class Instructor(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -21,6 +24,3 @@ class Learner(models.Model):
 
     def __str__(self):
         return f"{self.user.username}, {self.occupation}"
-
-
-

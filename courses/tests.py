@@ -7,39 +7,42 @@ from lessons.forms import LessonForm
 from .forms import EnrollmentForm, CourseForm
 from users.models import Instructor, CustomUser
 
+
 class CourseModelTest(TestCase):
     def setUp(self):
         # Create test data for the Course model
-        self.user = get_user_model().objects.create_user(username='testuser', password='testpassword')
+        self.user = get_user_model().objects.create_user(
+            username="testuser", password="testpassword"
+        )
         self.course = Course.objects.create(
-            name='Test Course',
-            image='course_images/test_image.jpg',
-            description='Test description',
+            name="Test Course",
+            image="course_images/test_image.jpg",
+            description="Test description",
             pub_date=date.today(),
             created_by=self.user,
-            total_enrollment=0
+            total_enrollment=0,
         )
 
     def test_course_str_method(self):
         self.assertEqual(str(self.course), f"Name: {self.course.name}")
 
+
 class EnrollmentModelTest(TestCase):
     def setUp(self):
         # Create test data for the Enrollment model
-        self.user = get_user_model().objects.create_user(username='testuser', password='testpassword')
+        self.user = get_user_model().objects.create_user(
+            username="testuser", password="testpassword"
+        )
         self.course = Course.objects.create(
-            name='Test Course',
-            image='course_images/test_image.jpg',
-            description='Test description',
+            name="Test Course",
+            image="course_images/test_image.jpg",
+            description="Test description",
             pub_date=date.today(),
             created_by=self.user,
-            total_enrollment=0
+            total_enrollment=0,
         )
         self.enrollment = Enrollment.objects.create(
-            user=self.user,
-            course=self.course,
-            mode='free',
-            rating=4
+            user=self.user, course=self.course, mode="free", rating=4
         )
 
     def test_enrollment_str_method(self):
@@ -50,19 +53,22 @@ class EnrollmentModelTest(TestCase):
         self.assertEqual(self.enrollment.feedback, None)
 
     def test_enrollment_choices(self):
-        self.assertEqual(self.enrollment.mode, 'free')  # Assuming default mode is 'free'
+        self.assertEqual(
+            self.enrollment.mode, "free"
+        )  # Assuming default mode is 'free'
 
 
 class CourseFormTest(TestCase):
     def setUp(self):
         # create a test user
-        self.user = CustomUser.objects.create_user(username="testuser", password="testpassword")
+        self.user = CustomUser.objects.create_user(
+            username="testuser", password="testpassword"
+        )
 
         # create an instructor assoicated with the user
         self.instructor = Instructor.objects.create(user=self.user, full_time=True)
 
     def test_valid_course_form(self):
-        
 
         data = {
             "name": "Test Course",
@@ -83,6 +89,7 @@ class CourseFormTest(TestCase):
         self.assertEqual(form.errors["description"], ["This field is required."])
         self.assertEqual(form.errors["pub_date"], ["This field is required."])
         self.assertEqual(form.errors["instructors"], ["This field is required."])
+
 
 class EnrollmentFormTest(TestCase):
     def test_valid_enrollment_form(self):
@@ -107,7 +114,9 @@ class EnrollmentFormTest(TestCase):
         }
         form = EnrollmentForm(data=data)
         self.assertFalse(form.is_valid())
-        self.assertEqual(form.errors["rating"], ["Ensure this value is less than or equal to 5."])
+        self.assertEqual(
+            form.errors["rating"], ["Ensure this value is less than or equal to 5."]
+        )
 
 
 # Add more tests for other functionalities as needed

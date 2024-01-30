@@ -6,6 +6,7 @@ from django.contrib import messages
 
 # Create your views here.
 
+
 def create_course(request):
     course = "create_course"
     # check if user is super user
@@ -19,33 +20,29 @@ def create_course(request):
         if form.is_valid():
             course = form.save(commit=False)
             course.created_by = request.user
-             # Manually set the instructors for the course
-            instructors = form.cleaned_data['instructors']
+            # Manually set the instructors for the course
+            instructors = form.cleaned_data["instructors"]
             course.save()
-            course.instructors.set(instructors)  # Assuming instructors is a ManyToManyField in the Course model
+            course.instructors.set(
+                instructors
+            )  # Assuming instructors is a ManyToManyField in the Course model
             messages.success(request, "Course created successfully.")
             return redirect("home_page")
-        else: 
+        else:
             messages.error(request, "Error creating the course")
     else:
         form = CourseForm()
-    
 
-    return render(request, "courses/course.html", {"form":form, "course":course})
+    return render(request, "courses/course.html", {"form": form, "course": course})
 
 
 def course_detail(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
     # get current courses
-    current_courses = Course.objects.exclude(pk=course_id).order_by('pub_date')[:5]
+    current_courses = Course.objects.exclude(pk=course_id).order_by("pub_date")[:5]
 
-
-    context = {
-        "course":course,
-        "current_courses":current_courses
-    }
+    context = {"course": course, "current_courses": current_courses}
     return render(request, "courses/course_detail.html", context)
-
 
 
 def edit_course(request, course_id):
@@ -73,8 +70,7 @@ def edit_course(request, course_id):
             messages.error(request, "Error updating the course.")
     else:
         form = CourseForm(instance=course)
-    return render(request, "courses/course.html", {"form":form})
-
+    return render(request, "courses/course.html", {"form": form})
 
 
 def enroll_course(request, course_id):
@@ -83,12 +79,14 @@ def enroll_course(request, course_id):
         course = Course.objects.get(pk=course_id)
 
         # ceck if user is enrolled already or user is intructor
-        user_already_enrolled = Enrollment.objects.filter(user=request.user, course=course).exists()
-        if  user_already_enrolled:
+        user_already_enrolled = Enrollment.objects.filter(
+            user=request.user, course=course
+        ).exists()
+        if user_already_enrolled:
             messages.error(request, "Oops You're enrolled already")
             return redirect("enrolledcourse_details", course_id=course.id)
 
-        elif not user_already_enrolled and  request.method == "POST":
+        elif not user_already_enrolled and request.method == "POST":
             form = EnrollmentForm(request.POST)
             if form.is_valid():
                 enrollment = form.save(commit=False)
@@ -101,15 +99,10 @@ def enroll_course(request, course_id):
     except TypeError:
         messages.warning(request, "You must login before enrolling")
         return redirect("home_page")
-        
-    
-    context = {
-        "form":form,
-        "course":course
-    }
-            
-    return render(request, "courses/enroll_course.html", context)
 
+    context = {"form": form, "course": course}
+
+    return render(request, "courses/enroll_course.html", context)
 
 
 def enrolledcourse_details(request, course_id):
@@ -124,18 +117,15 @@ def enrolledcourse_details(request, course_id):
     lessons_for_enrolled_course = Lesson.objects.filter(course=course)
 
     context = {
-        "course":course,
-        "enrolled_course":other_enrolledcourses,
-        "lessons":lessons_for_enrolled_course
-
+        "course": course,
+        "enrolled_course": other_enrolledcourses,
+        "lessons": lessons_for_enrolled_course,
     }
-   
+
     return render(request, "courses/enrolledcourse_detail.html", context)
 
 
 def get_all_courses(request):
     courses = Course.objects.all()
-    context = {
-        "courses":courses
-    }
+    context = {"courses": courses}
     return render(request, "courses/all_courses.html", context)

@@ -38,13 +38,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "pages",
     "users",
     "courses",
     "lessons",
     "questions",
-
     # third party apps
     "ckeditor",
     "django_extensions",
@@ -52,6 +50,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -129,13 +128,14 @@ USE_TZ = True
 AUTH_USER_MODEL = "users.CustomUser"
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "myproject/static")
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "myproject/static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -147,6 +147,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # graph models
 GRAPH_MODELS = {
     "all_applications": True,
-    "group_models":True,
-
+    "group_models": True,
 }

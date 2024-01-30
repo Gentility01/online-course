@@ -19,13 +19,13 @@ DAY 2
 4. Creating Course app
     - Creating courses and enrollment models
     - Creating courses and enrollment form
-    - Creating views for 
+    - Creating views for
         - create_course and template
         - course_detail and template
         - edit_course and template
         - enroll_course and template
         - enrolledcourse_details (just to render to the template for now)
-        - get_all_courses 
+        - get_all_courses
     - Getting all the created courses in the home page using objects.all()
 
 DAY 3
@@ -50,4 +50,3 @@ DAY 4
     - Creating views for "ask questions", connecting to the template
     - Creating views for "lesson questions"
     - Creating view to set question choices
-

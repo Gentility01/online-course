@@ -3,13 +3,13 @@
 {% block content %}
     {% load static %}
     <main>
-
         <section class="slider-area ">
             <div class="slider-active">
-
                 <div class="single-slider slider-height d-flex align-items-center">
+
                     <div class="container">
                         <div class="row">
+
                             <div class="col-xl-6 col-lg-7 col-md-12">
                                 <div class="hero__caption">
                                     <h1 data-animation="fadeInLeft" data-delay="0.2s">Online learning<br> platform</h1>
@@ -83,16 +83,16 @@
                                 <a href="#"><img src="{{ course.image.url}}" alt=""></a>
                             </div>
                             <div class="properties__caption">
-                                
+
                                 <h3><a href="#">{{ course.name }}</a></h3>
-                               
+
                                 <a href="{% url 'course_detail' course.id %}" class="border-btn border-btn2">Find out more</a>
                             </div>
                         </div>
                     </div>
 
                     {% endfor %}
-                   
+
 
 
                 </div>

@@ -10,35 +10,48 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('courses', '0001_initial'),
-        ('users', '0001_initial'),
+        ("courses", "0001_initial"),
+        ("users", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='course',
-            name='created_by',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, related_name='created_courses', to=settings.AUTH_USER_MODEL),
+            model_name="course",
+            name="created_by",
+            field=models.ForeignKey(
+                default=None,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="created_courses",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='course',
-            name='instructors',
-            field=models.ManyToManyField(to='users.instructor'),
+            model_name="course",
+            name="instructors",
+            field=models.ManyToManyField(to="users.instructor"),
         ),
         migrations.AddField(
-            model_name='enrollment',
-            name='course',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='courses.course'),
+            model_name="enrollment",
+            name="course",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="courses.course"
+            ),
         ),
         migrations.AddField(
-            model_name='enrollment',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="enrollment",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='course',
-            name='users',
-            field=models.ManyToManyField(related_name='enrolled_courses', through='courses.Enrollment', to=settings.AUTH_USER_MODEL),
+            model_name="course",
+            name="users",
+            field=models.ManyToManyField(
+                related_name="enrolled_courses",
+                through="courses.Enrollment",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-  
+
 
 
     <main>
@@ -26,9 +26,9 @@
 
         <div class="courses-area section-padding40 fix">
             <div class="container">
-                
+
                 <div class="row">
-                    
+
                     {% if enrolled_courses %}
 
                     {% for course in enrolled_courses %}
@@ -39,29 +39,29 @@
                                     <a href="{% url 'enrolledcourse_details' course.id %}"><img src="{{ course.image.url }}" alt=""></a>
                                 </div>
                                 <div class="properties__caption">
-                                   
+
                                     <h3><a href="{% url 'enrolledcourse_details' course.id %}">{{ course.name}}</a></h3>
-                                    
+
                                     <a href="{% url 'enrolledcourse_details' course.id %}" class="border-btn border-btn2">Engage</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
-                    
+
                     {% else %}
                     <h3>You've not enrolled to any course yet...</h3>
                     {% endif %}
-                        
-                
-                   
+
+
+
                 </div>
-                
+
             </div>
         </div>
 
 
-        
+
 
     </main>
 {% endblock content %}

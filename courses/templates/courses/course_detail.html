@@ -19,7 +19,7 @@
                                      <a href="{% url 'edit_course' course.id %}" class="btn btn-primary">Edit course</a>
                                     {% endif %}
 
-                                
+
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                         {% endif %}
 
 
-                        
+
                             {% for lesson in lessons %}
                             <div class="comment-list">
                                 <div class="single-comment justify-content-between d-flex">
@@ -97,15 +97,15 @@
                                 </div>
                             </div>
                             {% endfor %}
-                        
+
 
                     </div> -->
 
                 </div>
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
-                        
-                       
+
+
                         <aside class="single_sidebar_widget popular_post_widget">
                             <h3 class="widget_title" style="color: #2d2d2d;">Recent Courses</h3>
                             {% for course in current_courses %}
@@ -117,10 +117,10 @@
                                     </a>
                                     <p>{{course.pub_date}}</p>
                                 </div>
-                            </div> 
+                            </div>
                             {% endfor %}
-                            
-                       
+
+
                     </div>
                 </div>
             </div>

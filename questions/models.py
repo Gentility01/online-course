@@ -3,7 +3,9 @@ from lessons.models import Lesson
 from users.models import *
 from django.conf import settings
 from ckeditor.fields import RichTextField
+
 # Create your models here.
+
 
 class Question(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -15,6 +17,7 @@ class Question(models.Model):
     def __str__(self):
         return f"{self.user.username}  title '{self.title}'  -> {self.content}"
 
+
 class Answer(models.Model):
     instructor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
@@ -25,7 +28,6 @@ class Answer(models.Model):
         return f"{self.instructor.username} answered on {self.question.lesson.title} - '{self.question.title}'"
 
 
-
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     content = models.TextField()
@@ -34,12 +36,14 @@ class Choice(models.Model):
     def __str__(self):
         return self.content
 
+
 class Submission(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, default=1)  # Add a default value here
+    question = models.ForeignKey(
+        Question, on_delete=models.CASCADE, default=1
+    )  # Add a default value here
     choices = models.ManyToManyField(Choice)
     score = models.IntegerField(default=0)
-
 
     def grade_submission(self):
         # Get the correct choices for the associated question
@@ -53,8 +57,8 @@ class Submission(models.Model):
         self.save()
 
         return is_correct
-    
-    def get_total_score(cls):   
+
+    def get_total_score(cls):
         total_score = 0
         for submission in cls.objects.all():
             total_score += submission.score
@@ -62,7 +66,7 @@ class Submission(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s submission for {self.question.title}"
-        
+
 
 class Grade(models.Model):
     submission = models.OneToOneField(Submission, on_delete=models.CASCADE)

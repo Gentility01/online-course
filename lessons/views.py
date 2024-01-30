@@ -5,8 +5,8 @@ from courses.models import Course, Enrollment
 from django.contrib import messages
 from users.models import Instructor
 from django.http import HttpResponse
-# Create your views here.
 
+# Create your views here.
 
 
 def create_lesson(request, course_id):
@@ -14,8 +14,13 @@ def create_lesson(request, course_id):
     course = get_object_or_404(Course, id=course_id)
 
     # Step 2: Check if the user is authenticated and is an instructor for the specific course
-    if not request.user.is_authenticated or not course.instructors.filter(user=request.user).exists():
-        messages.error(request, "You do not have permission to create a lesson for that course.")
+    if (
+        not request.user.is_authenticated
+        or not course.instructors.filter(user=request.user).exists()
+    ):
+        messages.error(
+            request, "You do not have permission to create a lesson for that course."
+        )
         return redirect("/")
 
     if request.method == "POST":
@@ -33,27 +38,23 @@ def create_lesson(request, course_id):
     else:
         form = LessonForm()
 
-    return render(request, "lessons/create_lesson.html", {"form": form, "course": course})
+    return render(
+        request, "lessons/create_lesson.html", {"form": form, "course": course}
+    )
 
 
 def lesson_success(request):
     return render(request, "lessons/lesson_success.html")
 
 
-
-
-
 def instructors_lessons_list(request, instructor_id):
-    # getting an intructor 
+    # getting an intructor
     instructor = Instructor.objects.get(pk=instructor_id)
 
     # get lessons created by a particular  instructor
     lessons = Lesson.objects.filter(course__instructors=instructor)
 
-    context = {
-        "instructor":instructor,
-        "lessons":lessons
-    }
+    context = {"instructor": instructor, "lessons": lessons}
     return render(request, "lessons/instructors_lesson_list.html", context)
 
 
@@ -63,8 +64,13 @@ def edit_lesson(request, course_id, lesson_id):
     lesson = get_object_or_404(Lesson, id=lesson_id, course=course)
 
     # Step 2: Check if the user is authenticated and is an instructor for the specific course
-    if not request.user.is_authenticated or not course.instructors.filter(user=request.user).exists():
-        messages.error(request, "You do not have permission to edit lessons for this course.")
+    if (
+        not request.user.is_authenticated
+        or not course.instructors.filter(user=request.user).exists()
+    ):
+        messages.error(
+            request, "You do not have permission to edit lessons for this course."
+        )
         return redirect("login_user")
 
     if request.method == "POST":
@@ -80,7 +86,11 @@ def edit_lesson(request, course_id, lesson_id):
     else:
         form = LessonForm(instance=lesson)
 
-    return render(request, "lessons/edit_lesson.html", {"form": form, "course": course, "lesson": lesson})
+    return render(
+        request,
+        "lessons/edit_lesson.html",
+        {"form": form, "course": course, "lesson": lesson},
+    )
 
 
 def enrolled_course_lesson_details(request, course_id, lesson_id):
@@ -97,8 +107,8 @@ def enrolled_course_lesson_details(request, course_id, lesson_id):
     # If the user is an instructor, grant access
     if Instructor.objects.filter(user=request.user).exists():
         context = {
-            'user': user,
-            'lesson': lessons.first(),  # You may need to add additional logic to select the correct lesson
+            "user": user,
+            "lesson": lessons.first(),  # You may need to add additional logic to select the correct lesson
         }
         return render(request, "lessons/enrolled_course_subject_details.html", context)
 
@@ -115,15 +125,15 @@ def enrolled_course_lesson_details(request, course_id, lesson_id):
     if lesson:
         # Now, you have the details of the enrolled lesson
         context = {
-            'user': user,
-            'enrollment': enrollments.first(),
-            'lesson': lesson,
+            "user": user,
+            "enrollment": enrollments.first(),
+            "lesson": lesson,
         }
         return render(request, "lessons/enrolled_course_subject_details.html", context)
 
     return HttpResponse("Lesson not found")
 
-    #get the logged in user
+    # get the logged in user
     user = request.user
 
     # get all lessons for specified course
@@ -136,9 +146,8 @@ def enrolled_course_lesson_details(request, course_id, lesson_id):
     # If the user is an instructor, grant access
     if Instructor.objects.filter(user=request.user).exists():
         context = {
-            'user': user,
-            'lesson': lessons.first(),  # You may need to add additional logic to select the correct lesson
-            
+            "user": user,
+            "lesson": lessons.first(),  # You may need to add additional logic to select the correct lesson
         }
         return render(request, "lessons/enrolled_course_subject_details.html", context)
     # If the user is not an instructor, try to get the enrollment for the specified user and course
@@ -154,9 +163,9 @@ def enrolled_course_lesson_details(request, course_id, lesson_id):
     if lesson:
         # Now, you have the details of the enrolled lesson
         context = {
-            'user': user,
-            'enrollment': enrollment,
-            'lesson': lesson,
+            "user": user,
+            "enrollment": enrollment,
+            "lesson": lesson,
         }
 
         return render(request, "lessons/enrolled_course_subject_details.html", context)

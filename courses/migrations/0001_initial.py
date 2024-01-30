@@ -9,29 +9,61 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Course',
+            name="Course",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('image', models.ImageField(upload_to='course_images/')),
-                ('description', ckeditor.fields.RichTextField()),
-                ('pub_date', models.DateField(null=True)),
-                ('total_enrollment', models.IntegerField(default=0)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("image", models.ImageField(upload_to="course_images/")),
+                ("description", ckeditor.fields.RichTextField()),
+                ("pub_date", models.DateField(null=True)),
+                ("total_enrollment", models.IntegerField(default=0)),
             ],
         ),
         migrations.CreateModel(
-            name='Enrollment',
+            name="Enrollment",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('enrollment_date', models.DateTimeField(auto_now_add=True)),
-                ('mode', models.CharField(choices=[('free', 'Free'), ('paid', 'Paid')], default='free', max_length=10)),
-                ('rating', models.IntegerField(blank=True, null=True, validators=[django.core.validators.MaxValueValidator(5), django.core.validators.MinValueValidator(1)])),
-                ('feedback', models.TextField(blank=True, null=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("enrollment_date", models.DateTimeField(auto_now_add=True)),
+                (
+                    "mode",
+                    models.CharField(
+                        choices=[("free", "Free"), ("paid", "Paid")],
+                        default="free",
+                        max_length=10,
+                    ),
+                ),
+                (
+                    "rating",
+                    models.IntegerField(
+                        blank=True,
+                        null=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(5),
+                            django.core.validators.MinValueValidator(1),
+                        ],
+                    ),
+                ),
+                ("feedback", models.TextField(blank=True, null=True)),
             ],
         ),
     ]
