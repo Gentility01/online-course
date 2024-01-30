@@ -12,12 +12,13 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent 
 
-
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = "django-insecure-9@2+)@hwiv(qk94oqf(9=@gcv)48k-il1t1h$a772e+e580#$y"
 
 
 
