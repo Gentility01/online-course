@@ -30,6 +30,10 @@ urlpatterns = [
     path("question/", include("questions.urls")),
 ]
 
+handler404 = "pages.views.page_not_found"
+handler500 = "pages.views.server_error"
+
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
