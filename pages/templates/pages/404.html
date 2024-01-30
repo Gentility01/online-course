@@ -1,28 +1,32 @@
-{% extends 'base.html' %}
-{% load static %}
 
-{% block title %}
-    404 error
-{% endblock title %}
-    
+
+{% extends "base.html" %}
+
 {% block content %}
-<!-- About  -->
-<section id="about" class="section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center">
-                <img src="{% static 'images/error404-01.svg' %}" alt="" style="height: 300px;">
-                <h1 class="display-1 text-danger mb-0">404</h1>
-                <h2>Oh no, something went wrong!</h2>
-                <p class="mb-4">Either something went wrong or this page doesn't exist anymore.</p>
-				<!-- Button -->
-				<a href="{% url 'homepage' %}" class="btn btn-primary mb-0">Take me to Homepage</a>
+    {% load static %}
+    <main>
+        <section class="slider-area ">
+            <div class="slider-active">
+                <div class="single-slider slider-height d-flex align-items-center">
+
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-12 text-center">
+                                <img src="{% static 'images/error404-01.svg' %}" alt="" style="height: 300px;">
+                                <h1 class="display-1 text-danger mb-0">404</h1>
+                                <h2>Oh no, something went wrong!</h2>
+                                <p class="mb-4">Either something went wrong or this page doesn't exist anymore.</p>
+                                <!-- Button -->
+                                <a href="{% url 'homepage' %}" class="btn btn-primary mb-0">Take me to Homepage</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
 
-        </div>
-        
-        
-    </div>
-</section>
+       
 
-{% endblock content %}
+    </main>
+    {% endblock content %}
