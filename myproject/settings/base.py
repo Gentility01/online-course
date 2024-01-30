@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "courses",
     "lessons",
     "questions",
+    "core",
     # third party apps
     "ckeditor",
     "django_extensions",

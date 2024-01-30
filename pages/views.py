@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from courses.models import Course
-from pages.views import page_not_found, server_error
+
 # Create your views here.
 
 
@@ -12,8 +12,3 @@ def home_page(request):
 
 
 
-def page_not_found(request, exception):
-    return render(request, "pages/404.html", status=404)
-
-def server_error(request):
-    return render(request, "pages/500.html", status=500)
