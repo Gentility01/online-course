@@ -7,7 +7,7 @@ DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 
  
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "online-course-prnw.onrender.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "online-course-7du1.onrender.com"]
 
 
 DATABASES = {
